@@ -1,3 +1,10 @@
+> [!IMPORTANT]
+> **Important / 重要**
+>
+> **English:** Known issue: MMI Mirror sessions launched via **AutoStart** may go black after extended continuous use. Please prioritize driving safety. For long sessions, use manual **`Start MMI Mirror`** instead; this issue has not been observed with manual Start. If the display goes black while driving, do not operate the head unit until the vehicle is safely stopped.
+>
+> **中文：** 已知问题：使用 **AutoStart（自启动）** 启动的 MMI Mirror，在长时间连续使用后可能出现黑屏。请务必注意驾驶安全；若需要长时间使用，建议使用手动 **`Start MMI Mirror`**。目前手动 Start 未发现此问题。若行驶中出现黑屏，请不要在驾驶过程中操作车机，确保安全停车后再处理。
+
 # MIB2 Toolbox — CarPlay RGI + MMI Mirror
 
 [简体中文](README.md) | English
@@ -237,7 +244,6 @@ Re-enable AutoStart if desired
 #### CarPlay RGI
 
 If route information is missing, cluster maneuver rendering is abnormal, or CarPlay interaction behaves incorrectly, navigate to:
-
 ```text
 Main > MQBCoding > Customization > CarPlay Route Guidance
 ```
