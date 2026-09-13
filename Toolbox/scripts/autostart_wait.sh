@@ -26,11 +26,11 @@
 #
 # No side effects when sourced: definitions only.
 
-# autostart_delay_seconds [raw] -> echoes a valid delay (0..300, default 20).
+# autostart_delay_seconds [raw] -> echoes a valid delay (0..300, default 30).
 autostart_delay_seconds() {
     _raw=${1:-}
     case "${_raw}" in
-        ''|*[!0-9]*) _raw=20 ;;
+        ''|*[!0-9]*) _raw=30 ;;
     esac
     [ "${_raw}" -gt 300 ] && _raw=300
     echo "${_raw}"
