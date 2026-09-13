@@ -33,7 +33,7 @@ else
     echo "WARN: ${SCRIPTDIR}/autostart_wait.sh missing; using the inline fallback"
     autostart_delay_seconds() {
         _raw=${1:-}
-        case "${_raw}" in ''|*[!0-9]*) _raw=20 ;; esac
+        case "${_raw}" in ''|*[!0-9]*) _raw=30 ;; esac
         [ "${_raw}" -gt 300 ] && _raw=300
         echo "${_raw}"
     }
@@ -89,8 +89,8 @@ write_status() {
 # up leaves ctx80 with no visible layer -> black cluster (centre MMI unaffected).
 # Therefore: wait for the installed runtime + Java controller AND for a boot
 # delay counted from the moment this hook fired (MMI_AUTOSTART_DELAY, seconds,
-# 0..300, default 20). Set it to 0 to restore the previous immediate start.
-MMI_AUTOSTART_DELAY=$(autostart_delay_seconds "${MMI_AUTOSTART_DELAY:-20}")
+# 0..300, default 30). Set it to 0 to restore the previous immediate start.
+MMI_AUTOSTART_DELAY=$(autostart_delay_seconds "${MMI_AUTOSTART_DELAY:-30}")
 echo "AutoStart boot delay: ${MMI_AUTOSTART_DELAY}s counted from the hook anchor"
 
 autostart_wait_for_prereqs "${MMI_AUTOSTART_DELAY}" 120 "${MARKER}" "${START}" \
