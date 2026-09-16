@@ -25,5 +25,35 @@ MMI_SPORT_SMALL_SCALE=0.63
 MMI_SPORT_SMALL_OFFSET_X=0
 MMI_SPORT_SMALL_OFFSET_Y=8
 
+# Optional adaptive bounds in 1440x455 output pixels: all four coordinates
+# must be configured for a profile to opt in. Leave unset until measured on
+# the target vehicle; missing/invalid bounds retain the scale/offset above.
+# Requires a rebuilt native binary supporting adaptive geometry.
+# Policy defaults to CONTAIN; COVER fills bounds using a centered source crop.
+# See MMI-Mirror/docs/adaptive-geometry.md for coordinates and CLI equivalents.
+# MMI_CLASSIC_FULL_BOUNDS_X=
+# MMI_CLASSIC_FULL_BOUNDS_Y=
+# MMI_CLASSIC_FULL_BOUNDS_WIDTH=
+# MMI_CLASSIC_FULL_BOUNDS_HEIGHT=
+# MMI_CLASSIC_FULL_POLICY=CONTAIN
+
+# MMI_CLASSIC_SMALL_BOUNDS_X=
+# MMI_CLASSIC_SMALL_BOUNDS_Y=
+# MMI_CLASSIC_SMALL_BOUNDS_WIDTH=
+# MMI_CLASSIC_SMALL_BOUNDS_HEIGHT=
+# MMI_CLASSIC_SMALL_POLICY=CONTAIN
+
+# MMI_SPORT_FULL_BOUNDS_X=
+# MMI_SPORT_FULL_BOUNDS_Y=
+# MMI_SPORT_FULL_BOUNDS_WIDTH=
+# MMI_SPORT_FULL_BOUNDS_HEIGHT=
+# MMI_SPORT_FULL_POLICY=CONTAIN
+
+# MMI_SPORT_SMALL_BOUNDS_X=
+# MMI_SPORT_SMALL_BOUNDS_Y=
+# MMI_SPORT_SMALL_BOUNDS_WIDTH=
+# MMI_SPORT_SMALL_BOUNDS_HEIGHT=
+# MMI_SPORT_SMALL_POLICY=CONTAIN
+
 MMI_MIRROR_LOG=/tmp/mmi-mirror-display.log
 MMI_MIRROR_LOG_MAX_BYTES=524288

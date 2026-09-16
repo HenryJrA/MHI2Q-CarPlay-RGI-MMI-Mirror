@@ -53,6 +53,30 @@ MMI_SPORT_SMALL_SCALE="${MMI_SPORT_SMALL_SCALE:-$LEGACY_SCALE}"
 MMI_SPORT_SMALL_OFFSET_X="${MMI_SPORT_SMALL_OFFSET_X:-$LEGACY_X}"
 MMI_SPORT_SMALL_OFFSET_Y="${MMI_SPORT_SMALL_OFFSET_Y:-$LEGACY_Y}"
 
+# Bounds are deliberately unset by default. Only forward opted-in adaptive
+# options, so unchanged configs also work with the older packaged native binary.
+# Prepend these to the user's arguments: trailing CLI options keep precedence.
+if [ "${MMI_CLASSIC_FULL_BOUNDS_X+x}" = x ]; then set -- --classic-full-bounds-x "$MMI_CLASSIC_FULL_BOUNDS_X" "$@"; fi
+if [ "${MMI_CLASSIC_FULL_BOUNDS_Y+x}" = x ]; then set -- --classic-full-bounds-y "$MMI_CLASSIC_FULL_BOUNDS_Y" "$@"; fi
+if [ "${MMI_CLASSIC_FULL_BOUNDS_WIDTH+x}" = x ]; then set -- --classic-full-bounds-width "$MMI_CLASSIC_FULL_BOUNDS_WIDTH" "$@"; fi
+if [ "${MMI_CLASSIC_FULL_BOUNDS_HEIGHT+x}" = x ]; then set -- --classic-full-bounds-height "$MMI_CLASSIC_FULL_BOUNDS_HEIGHT" "$@"; fi
+if [ "${MMI_CLASSIC_FULL_POLICY+x}" = x ]; then set -- --classic-full-policy "$MMI_CLASSIC_FULL_POLICY" "$@"; fi
+if [ "${MMI_CLASSIC_SMALL_BOUNDS_X+x}" = x ]; then set -- --classic-small-bounds-x "$MMI_CLASSIC_SMALL_BOUNDS_X" "$@"; fi
+if [ "${MMI_CLASSIC_SMALL_BOUNDS_Y+x}" = x ]; then set -- --classic-small-bounds-y "$MMI_CLASSIC_SMALL_BOUNDS_Y" "$@"; fi
+if [ "${MMI_CLASSIC_SMALL_BOUNDS_WIDTH+x}" = x ]; then set -- --classic-small-bounds-width "$MMI_CLASSIC_SMALL_BOUNDS_WIDTH" "$@"; fi
+if [ "${MMI_CLASSIC_SMALL_BOUNDS_HEIGHT+x}" = x ]; then set -- --classic-small-bounds-height "$MMI_CLASSIC_SMALL_BOUNDS_HEIGHT" "$@"; fi
+if [ "${MMI_CLASSIC_SMALL_POLICY+x}" = x ]; then set -- --classic-small-policy "$MMI_CLASSIC_SMALL_POLICY" "$@"; fi
+if [ "${MMI_SPORT_FULL_BOUNDS_X+x}" = x ]; then set -- --sport-full-bounds-x "$MMI_SPORT_FULL_BOUNDS_X" "$@"; fi
+if [ "${MMI_SPORT_FULL_BOUNDS_Y+x}" = x ]; then set -- --sport-full-bounds-y "$MMI_SPORT_FULL_BOUNDS_Y" "$@"; fi
+if [ "${MMI_SPORT_FULL_BOUNDS_WIDTH+x}" = x ]; then set -- --sport-full-bounds-width "$MMI_SPORT_FULL_BOUNDS_WIDTH" "$@"; fi
+if [ "${MMI_SPORT_FULL_BOUNDS_HEIGHT+x}" = x ]; then set -- --sport-full-bounds-height "$MMI_SPORT_FULL_BOUNDS_HEIGHT" "$@"; fi
+if [ "${MMI_SPORT_FULL_POLICY+x}" = x ]; then set -- --sport-full-policy "$MMI_SPORT_FULL_POLICY" "$@"; fi
+if [ "${MMI_SPORT_SMALL_BOUNDS_X+x}" = x ]; then set -- --sport-small-bounds-x "$MMI_SPORT_SMALL_BOUNDS_X" "$@"; fi
+if [ "${MMI_SPORT_SMALL_BOUNDS_Y+x}" = x ]; then set -- --sport-small-bounds-y "$MMI_SPORT_SMALL_BOUNDS_Y" "$@"; fi
+if [ "${MMI_SPORT_SMALL_BOUNDS_WIDTH+x}" = x ]; then set -- --sport-small-bounds-width "$MMI_SPORT_SMALL_BOUNDS_WIDTH" "$@"; fi
+if [ "${MMI_SPORT_SMALL_BOUNDS_HEIGHT+x}" = x ]; then set -- --sport-small-bounds-height "$MMI_SPORT_SMALL_BOUNDS_HEIGHT" "$@"; fi
+if [ "${MMI_SPORT_SMALL_POLICY+x}" = x ]; then set -- --sport-small-policy "$MMI_SPORT_SMALL_POLICY" "$@"; fi
+
 # Old config.local files may still contain retired routing/seam variables.
 # V2.2 intentionally ignores them: the binary has no Native context-routing path
 # and the Java/Native seam paths are fixed.

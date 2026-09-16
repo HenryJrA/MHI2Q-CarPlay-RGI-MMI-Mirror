@@ -60,7 +60,7 @@ draw -> swap -> draw -> swap
 
 这些路径以及 capture/output/displayable 不再通过 `config.local` 改写，避免 Java 和 Native 使用不同 seam。
 
-可调项目仅包括：FPS、capture recover、HMI poll、四组 geometry scale/offset、日志参数。旧三项 geometry alias 仍作为已有配置兼容 fallback。
+可调项目包括：FPS、capture recover、HMI poll、四组 geometry scale/offset、可选 usable bounds 与 CONTAIN/COVER policy、日志参数。未配置有效 bounds 时沿用 scale/offset；旧三项 geometry alias 仍作为已有配置兼容 fallback。详见 [Adaptive Virtual Cockpit geometry](docs/adaptive-geometry.md)。
 
 ## Capture recovery
 

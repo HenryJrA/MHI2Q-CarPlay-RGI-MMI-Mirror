@@ -14,6 +14,7 @@ public:
     bool init(const Mhi2qBackendConfig &cfg);
     bool present_frame(const VideoFrame &frame);
     bool present_test_grid();
+    bool set_geometry(const VideoGeometry &geometry);
     bool set_destination_rect(int x, int y, int width, int height);
     void set_fullscreen_destination();
     void refresh();

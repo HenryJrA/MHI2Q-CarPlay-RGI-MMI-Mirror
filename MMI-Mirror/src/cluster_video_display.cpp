@@ -72,6 +72,11 @@ bool ClusterVideoDisplay::present_test_grid() {
     return present_uploaded_frame();
 }
 
+bool ClusterVideoDisplay::set_geometry(const VideoGeometry &geometry) {
+    if (!ready_) return false;
+    return renderer_.set_geometry(geometry);
+}
+
 bool ClusterVideoDisplay::set_destination_rect(int x, int y, int width, int height) {
     if (!ready_) return false;
     return renderer_.set_destination_rect(x, y, width, height);

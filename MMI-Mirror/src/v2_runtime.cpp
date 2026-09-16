@@ -31,10 +31,22 @@ static void set_ready_marker(bool ready) {
     fclose(fp);
 }
 
-static bool apply_layout(ClusterVideoDisplay *display,const BaseVideoLayoutController &ctl,const ClusterLayoutState &state,const char *source){
-    BaseVideoDestination d; if(!ctl.resolve(state,&d))return false; if(!display->set_destination_rect(d.x,d.y,d.width,d.height))return false;
-    char name[64]; fprintf(stderr,"layout: state=%s profile=%s source=%s scale=%.3f dst=%dx%d@(%d,%d) offset=(%d,%d)\n",
-      ClusterLayoutStateReader::state_name(state,name,sizeof(name)),d.profile_name,source?source:"unknown",d.applied_scale,d.width,d.height,d.x,d.y,d.offset_x,d.offset_y); return true;
+static bool apply_layout(ClusterVideoDisplay *display,
+                         const BaseVideoLayoutController &ctl,
+                         const ClusterLayoutState &state, const char *source) {
+    BaseVideoDestination d;
+    if (!ctl.resolve(state, &d) || !display->set_geometry(d)) return false;
+    const char *policy = !d.uses_bounds ? "LEGACY" :
+        (d.policy == BASE_VIDEO_COVER ? "COVER" : "CONTAIN");
+    char name[64];
+    fprintf(stderr,
+            "layout: state=%s profile=%s source=%s policy=%s scale=%.3f "
+            "dst=%dx%d@(%d,%d) uv=(%.6f,%.6f)-(%.6f,%.6f) offset=(%d,%d)\n",
+            ClusterLayoutStateReader::state_name(state, name, sizeof(name)),
+            d.profile_name, source ? source : "unknown", policy, d.applied_scale,
+            d.width, d.height, d.x, d.y, d.u0, d.v0, d.u1, d.v1,
+            d.offset_x, d.offset_y);
+    return true;
 }
 
 static bool acquire_first_frame(MmiCaptureSource *capture,VideoFrame *frame,int wait_ms){

@@ -31,6 +31,7 @@ GlRenderer::GlRenderer()
       output_width_(0), output_height_(0), swap_rb_(false), ready_(false),
       upload_buffer_(0), upload_buffer_bytes_(0) {
     memset(vertices_, 0, sizeof(vertices_));
+    memset(texcoords_, 0, sizeof(texcoords_));
 }
 
 GlRenderer::~GlRenderer() {
@@ -234,12 +235,13 @@ bool GlRenderer::upload_test_grid(int width, int height) {
     return ok;
 }
 
-bool GlRenderer::set_destination_rect(int x, int y, int width, int height) {
-    if (output_width_ <= 0 || output_height_ <= 0 ||
-        width <= 0 || height <= 0 ||
-        x < 0 || y < 0 || x + width > output_width_ || y + height > output_height_) {
-        return false;
-    }
+bool GlRenderer::set_geometry(const VideoGeometry &geometry) {
+    /* Validate both rectangles before changing either; rejected updates leave
+     * the previous complete geometry intact. No window/EGL changes are needed. */
+    if (!geometry.valid_for(output_width_, output_height_)) return false;
+
+    const int x = geometry.x, y = geometry.y;
+    const int width = geometry.width, height = geometry.height;
 
     const GLfloat left = -1.0f + 2.0f * (GLfloat)x / (GLfloat)output_width_;
     const GLfloat right = -1.0f + 2.0f * (GLfloat)(x + width) / (GLfloat)output_width_;
@@ -250,7 +252,21 @@ bool GlRenderer::set_destination_rect(int x, int y, int width, int height) {
     vertices_[2] = left;  vertices_[3] = bottom;
     vertices_[4] = right; vertices_[5] = top;
     vertices_[6] = right; vertices_[7] = bottom;
+
+    texcoords_[0] = geometry.u0; texcoords_[1] = geometry.v0;
+    texcoords_[2] = geometry.u0; texcoords_[3] = geometry.v1;
+    texcoords_[4] = geometry.u1; texcoords_[5] = geometry.v0;
+    texcoords_[6] = geometry.u1; texcoords_[7] = geometry.v1;
     return true;
+}
+
+bool GlRenderer::set_destination_rect(int x, int y, int width, int height) {
+    VideoGeometry geometry;
+    geometry.x = x;
+    geometry.y = y;
+    geometry.width = width;
+    geometry.height = height;
+    return set_geometry(geometry);
 }
 
 void GlRenderer::set_fullscreen_destination() {
@@ -260,13 +276,6 @@ void GlRenderer::set_fullscreen_destination() {
 
 void GlRenderer::draw() {
     if (!ready_ || !texture_) return;
-
-    static const GLfloat texcoords[] = {
-        0.0f, 0.0f,
-        0.0f, 1.0f,
-        1.0f, 0.0f,
-        1.0f, 1.0f
-    };
 
     glViewport(0, 0, output_width_, output_height_);
     glClear(GL_COLOR_BUFFER_BIT);
@@ -280,7 +289,7 @@ void GlRenderer::draw() {
     glEnableVertexAttribArray((GLuint)attr_position_);
     glEnableVertexAttribArray((GLuint)attr_texcoord_);
     glVertexAttribPointer((GLuint)attr_position_, 2, GL_FLOAT, GL_FALSE, 0, vertices_);
-    glVertexAttribPointer((GLuint)attr_texcoord_, 2, GL_FLOAT, GL_FALSE, 0, texcoords);
+    glVertexAttribPointer((GLuint)attr_texcoord_, 2, GL_FLOAT, GL_FALSE, 0, texcoords_);
 
     glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 

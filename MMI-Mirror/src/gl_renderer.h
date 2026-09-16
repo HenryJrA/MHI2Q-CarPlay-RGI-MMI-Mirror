@@ -2,6 +2,7 @@
 #define GL_RENDERER_H
 
 #include "video_frame.h"
+#include "video_geometry.h"
 #include <GLES2/gl2.h>
 #include <stddef.h>
 
@@ -16,6 +17,8 @@ public:
     bool upload_test_grid(int width, int height);
 
     /* Destination rectangle uses output-pixel coordinates with top-left origin. */
+    bool set_geometry(const VideoGeometry &geometry);
+    /* Compatibility helper: use the complete source texture. */
     bool set_destination_rect(int x, int y, int width, int height);
     void set_fullscreen_destination();
 
@@ -48,6 +51,7 @@ private:
     bool ready_;
 
     GLfloat vertices_[8];
+    GLfloat texcoords_[8];
     unsigned char *upload_buffer_;
     size_t upload_buffer_bytes_;
 };
